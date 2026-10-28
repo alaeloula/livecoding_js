@@ -134,15 +134,11 @@ function creerOption(famille, cle, option) {
    ========================================================= */
 function afficherOptions() {
   for (const famille in config) {
-    const zone = document.getElementById("zone-" + famille);
+    const zone = document.getElementById("zone" + famille);
       console.log("famille",famille);
       
     for (const cle in config[famille]) {
       zone.appendChild(creerOption(famille, cle, config[famille][cle]));
-      console.log("cle", cle );
-      console.log("config[famille][cle]", config[famille][cle]);
-   
-      
     }
   }
 }
@@ -164,6 +160,33 @@ function afficherOptions() {
    ========================================================= */
 function choisirOption(event) {
   // À compléter
+   const input = event.target;
+  if (input.tagName !== "INPUT") {
+    return;
+  }
+
+  const famille = input.name;
+  const cle = input.value;
+  
+console.log(famille,cle);
+
+  if (famille === "extras") {
+    if (input.checked) {
+      selectedConfig[cle] = config.extras[cle];
+      console.log("selectedConfig[cle]",selectedConfig[cle]);
+      
+    } else {
+      selectedConfig[cle] = null;
+    }
+  } else {
+    selectedConfig[famille] = config[famille][cle];  // un OBJET, pas un prix
+    
+    console.log("selectedConfig[famille]",selectedConfig[famille]);
+    console.log("config[famille][cle]",config[famille][cle]);
+  }
+console.log(selectedConfig);
+
+  calculerTotal();
 }
 
 
@@ -180,6 +203,18 @@ function choisirOption(event) {
    ========================================================= */
 function calculerTotal() {
   // À compléter
+   let total = 0;
+  const options = Object.values(selectedConfig);
+
+  for (let i = 0; i < options.length; i++) {
+    if (options[i] !== null) {
+      total += options[i].price;     // .price : on additionne des nombres
+    }
+  }
+
+  // Affichage APRÈS la boucle : mis à jour même quand total vaut 0
+  document.getElementById("total").textContent = formatPrix(total);
+  return total;
 }
 
 
