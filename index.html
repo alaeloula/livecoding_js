@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRESHA · Composez votre bowl</title>
+  <style>
+    [hidden] { display: none !important; }
+    body { font-family: system-ui, sans-serif; background: #f6f3ec; color: #222; max-width: 600px; margin: 0 auto; padding: 24px 16px; }
+    h2 { font-size: 15px; margin: 20px 0 10px; }
+    .zone { display: flex; flex-wrap: wrap; gap: 10px; }
+    .carte { flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #fff; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; }
+    .carte input { position: absolute; opacity: 0; }
+    .carte small { color: #888; }
+    .carte:has(input:checked) { background: #e3ecd9; border: 2px solid #3a5a30; }
+    .carte:has(input:focus-visible) { outline: 2px solid #3a5a30; outline-offset: 2px; }
+    .pied { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
+    button { padding: 10px 16px; background: #3a5a30; color: #fff; border: none; border-radius: 8px; font: inherit; cursor: pointer; }
+    #message { color: #b3261e; min-height: 1.2em; }
+  </style>
+  <script src="app.js" defer></script>
+  <script src="tests.js" defer></script>
+</head>
+<body>
+
+  <form id="configurateur">
+    <h1>Composez votre bowl</h1>
+
+    <h2>01 La base <small>Choix unique</small></h2>
+    <div class="zone" id="zone-base"></div>
+
+    <h2>02 La protéine <small>Choix unique</small></h2>
+    <div class="zone" id="zone-proteine"></div>
+
+    <h2>03 La sauce <small>Choix unique</small></h2>
+    <div class="zone" id="zone-sauce"></div>
+
+    <h2>04 Les extras <small>Plusieurs choix</small></h2>
+    <div class="zone" id="zone-extras"></div>
+
+    <div class="pied">
+      <p>Total : <strong id="total">0.00 DH</strong></p>
+      <button id="btn-valider" type="button">Voir mon reçu</button>
+    </div>
+    <p id="message"></p>
+  </form>
+
+  <div id="recu" hidden>
+    <h2>Votre reçu</h2>
+    <div id="lignes-recu"></div>
+    <p><strong>Total : <span id="recu-total"></span></strong></p>
+    <button id="btn-modifier" type="button">Modifier mes choix</button>
+    <button id="btn-nouveau" type="button">Composer un autre bowl</button>
+  </div>
+
+</body>
+</html>
